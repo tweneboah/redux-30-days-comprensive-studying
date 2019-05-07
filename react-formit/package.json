@@ -1,16 +1,13 @@
 {
-  "name": "redux-weather-app",
+  "name": "react-formit",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
+    "formik": "^1.5.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
     "react-scripts": "3.0.0",
-    "redux": "^4.0.1",
-    "redux-promise": "^0.6.0"
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
