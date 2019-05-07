@@ -146,4 +146,133 @@ export default connect(mapStateToProps, {selectedBook}) (BookList);
 4. When creating the reducer, we know that state reducer requires state and action. The state you pass to this reducer is not the state of your application so we offten default to null depending on your expectations
 4. Wherever the action calls in your application and that action will go through all the reducers automatically and if that reducer meets the action type all the component will re-render and displays the new state.
 
+# REDUX-FORM
+# REDUX-FORM
+***
+```
+import { Field, reduxForm } from 'redux-form';
+```
+##  **ReduxForm**
+* _**ReduxForm**_ works like connect function. We use _**ReduxForm**_ to wrap/bind the component which has the form 
+```javascript
+export default reduxForm({
+    form: 'RegistrationForm'
+}) (Form);
+```
+After binding it to the component, it's a lot of methods and properties to that component, this means the component is now a high order component because it has a lot of functions provided by the redux-form. At this point you can **console.log(this.props)** and you will see all the methods
 
+* The redux-form function accept objects. You pass in the name of the form or validation to it
+```javascript
+export default reduxForm({
+    form:'RegistrationForm'
+}) (Form);
+```
+##  **Field**
+*  The Field component is much more powerful.
+*  Each Field represent one input field and within that Field there are many functions provided by redux-form so if I have 3 inputs it means i will have 3 Fields.
+
+```javascript
+ <Field
+        label='Categories'
+        name='categories'
+        component={this.renderField}
+  />
+```
+### Properties and methods props we can pass to each Field
+1. _** name = 'title'**_ The title holds the state or the value from the field the user enters
+2. _**component={}**_ : 
+* This component receives a callback function and this function will render the form field onto the screen.
+* This callback function determines the type of the field either 'checkbox', 'text'
+* The callback accept an argument and that add more functions to that particular input field
+```javascript
+renderField =(field) => {
+    console.log(field)
+
+   return (
+       <div className='form-group'>
+          <label>{field.label}</label>
+           <input className='form-control'
+            type='text'
+            {...field.input} //This pull all the functions to this field
+           />
+       </div>
+   )
+}
+
+```
+
+## EXTRACTING THE VALUES FROM THE FIELD
+1. Form submission is handle by redux-for, all what we have to do is to pass a callback function to that.
+2. Within the callback function we pass in an argument and that argument represent the values from the field
+
+```javascript
+onSubmitValues (values) {
+    console.log(values)
+   
+}
+```
+
+## OVERALL CODE
+```javascript
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+
+
+class Form extends Component {
+    
+renderField =(field) => {
+    console.log(field)
+
+   return (
+       <div className='form-group'>
+          <label>{field.label}</label>
+           <input className='form-control'
+            type='text'
+            {...field.input}
+           />
+       </div>
+   )
+}
+
+//Consuming the values from the form
+onSubmitValues (values) {
+    console.log(values)
+   
+}
+
+    render() { 
+       
+        //destructuring handlesubmit from this.props
+       const {handleSubmit} = this.props
+       
+        return ( 
+            <form onSubmit={this.props.handleSubmit(this.onSubmitValues.bind(this))}>
+              <h1>Registration form</h1>
+                <Field
+                label='Title'
+                name='title'
+                component={this.renderField}
+                />
+
+               <Field
+               label='Categories'
+                name='categories'
+                component={this.renderField}
+                />
+
+               <Field
+               label='Content'
+                name='content'
+                component={this.renderField}
+                />
+
+                <button className='btn btn-primary'> Submit</button>
+            </form>
+         );
+    }
+}
+ 
+export default reduxForm({
+    form:'RegistrationForm'
+}) (Form);
+```
