@@ -9,13 +9,13 @@ import onDeleteResult from '../actions/onDeleteResult'
 class Counter extends Component {
  
     render() { 
-        console.log('From Count Props', this.props)
+        console.log('From Count Props', this.props.ctr.results)
         return ( 
             <div>
                 <h1>Counter App</h1>
                 <h2>TRANSACTIONS STATISTICS</h2>
                 <hr/>
-                <h2>Total Count =    <span class="badge badge-secondary">{this.props.ctr.counter} </span></h2>
+                <h2>Total Count =    <span className="badge badge-secondary">{this.props.ctr.counter} </span></h2>
                 <p>Decrement History Count: {this.props.ctr.decrementHistory.length}</p>
 
                 <p>Increase History Count: {this.props.ctr.increamentHistory.length}</p>
@@ -38,7 +38,7 @@ class Counter extends Component {
                 <ul className="list-group">
                 <p>The current state of the store is</p>
                     {this.props.ctr.results.map((item) => {
-                        return <li className="list-group-item" onClick={this.props.onDeleteResult}>{item}</li>
+                        return <li className="list-group-item" onClick={this.props.onDeleteResult}>Current Value in store: {item.value}</li>
                     })}
                     
                 </ul>
@@ -76,7 +76,10 @@ class Counter extends Component {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        ctr: state.counter
+        ctr: state.counter,
+        decrementHistory: state.decrementHistory,
+        increaeByFiveHistory: state.increaeByFiveHistory,
+        increamentHistory: state.increamentHistory
         
     }
 }
