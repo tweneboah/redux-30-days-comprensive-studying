@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import myAction from '../actions/createPostAction'
+
 
 
 class Form extends Component {
     
 renderField =(field) => {
-    console.log(field)
+    // console.log(field)
 
    return (
        <div className='form-group'>
@@ -20,12 +23,13 @@ renderField =(field) => {
 
 //
 onSubmitValues (values) {
-    console.log(values)
+    // console.log(values)
+    this.props.myAction(values)
    
 }
 
     render() { 
-       
+       console.log(this.props)
         //destructuring handlesubmit from this.props
        const {handleSubmit} = this.props
        
@@ -83,6 +87,7 @@ onSubmitValues (values) {
 
 //We have to create our own function and pass it to the handleSubmit from redux. This handleSubmit from redux will take care of our function or handleSubmit receives a function as an arguement
 
-export default reduxForm({
-    form:'RegistrationForm'
-}) (Form);
+export default reduxForm( {form:'RegistrationForm'}) (
+    connect(null, {myAction}) (Form)
+     
+     );

@@ -207,8 +207,7 @@ renderField =(field) => {
 
 ```javascript
 onSubmitValues (values) {
-    console.log(values)
-   
+    console.log(values);
 }
 ```
 
@@ -222,7 +221,6 @@ class Form extends Component {
     
 renderField =(field) => {
     console.log(field)
-
    return (
        <div className='form-group'>
           <label>{field.label}</label>
